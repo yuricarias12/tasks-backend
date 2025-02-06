@@ -17,15 +17,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('SONAR_LOCAL') {
-                   bat """
-                        java --add-opens java.base/java.lang=ALL-UNNAMED -jar "${scannerHome}/lib/sonar-scanner-cli.jar" \
-                        -X -e -Dsonar.verbose=true \
-                        -Dsonar.projectKey=DeployBack \
-                        -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.login=f578dad650620c275e252b635294b2c666aac2b2 \
-                        -Dsonar.java.binaries=target \
-                        -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/model/**,**Application.java
-                    """
+                    bat "${scannerHome}/bin/sonar-scanner -X -e -Dsonar.verbose=true -Dsonar.projectKey=DeployBack -Dsonar.host.url=http://localhost:9000 -Dsonar.login=f578dad650620c275e252b635294b2c666aac2b2 -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/model/**,**Application.java"
                 }
             }
         }
